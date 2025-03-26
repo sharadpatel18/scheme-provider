@@ -35,7 +35,7 @@ export default function Login() {
       const decodedToken = jwtDecode(data.token);
       localStorage.setItem("user", JSON.stringify(decodedToken));
       alert("Login successful!");
-      router.push("/dashboard"); // Redirect after login
+      router.push("/"); // Redirect after login
     } catch (error) {
       setError("Something went wrong!");
     }

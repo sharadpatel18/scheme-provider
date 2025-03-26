@@ -1,77 +1,97 @@
-"use client";
-
-import React from 'react';
+'use client';
+import Image from 'next/image';
 
 const Footer = () => {
   return (
-    <footer className="bg-blue-100 py-8 relative"> 
-      {/* Wave Background (Upside Down) */}
-      <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-r from-blue-200 to-blue-100 transform rotate-180">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-          <path fill="#ffffff" fillOpacity="1" d="M0,160L48,138.7C96,117,192,75,288,96C384,117,480,181,576,186.7C672,192,768,139,864,138.7C960,139,1056,181,1152,192C1248,203,1344,181,1392,170.7L1440,160L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
+    <footer className="w-[1520.999px] h-[447.516px] flex-shrink-0 relative mx-auto mt-auto overflow-hidden">
+      <div className="absolute inset-0 z-0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1521" height="448" viewBox="0 0 1521 448" fill="none">
+          <path d="M0 104.92C0 104.92 206.5 -68.4844 642 62.0155C1077.5 192.515 1521 0 1521 0V447.516H0V104.92Z" fill="#DDECFA"/>
         </svg>
       </div>
-
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Get to Know */}
-          <div>
-            <h3 className="font-semibold mb-4 text-black">Get to Know</h3> 
-            <ul className="space-y-2">
-              <li><a href="#" className="text-black hover:text-blue-500">Privacy Policy</a></li> 
-              <li><a href="#" className="text-black hover:text-blue-500">Cancellation/Refund Policy</a></li>
-              <li><a href="#" className="text-black hover:text-blue-500">FAQ</a></li>
-              <li><a href="#" className="text-black hover:text-blue-500">Terms of Service</a></li>
-            </ul>
-          </div>
-
-          {/* Grievance */}
-          <div>
-            <h3 className="font-semibold mb-4 text-black">Grievance</h3>
-            <ul className="space-y-2">
-              <li><a href="#" className="text-black hover:text-blue-500">CPGRAMS</a></li>
-              <li><a href="#" className="text-black hover:text-blue-500">National Consumer Helpline</a></li>
-            </ul>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h3 className="font-semibold mb-4 text-black">Quick Links</h3>
-            <ul className="space-y-2">
-              <li><a href="#" className="text-black hover:text-blue-500">About Us</a></li>
-              <li><a href="#" className="text-black hover:text-blue-500">Dashboard</a></li>
-              <li><a href="#" className="text-black hover:text-blue-500">Schemes</a></li>
-              <li><a href="#" className="text-black hover:text-blue-500">Our Partners</a></li>
-              <li><a href="#" className="text-black hover:text-blue-500">Contact Us</a></li>
-              <li><a href="#" className="text-black hover:text-blue-500">Video Guide</a></li>
-              <li><a href="#" className="text-black hover:text-blue-500">eBook</a></li>
-              <li><a href="#" className="text-black hover:text-blue-500">User Manual</a></li>
-              <li><a href="#" className="text-black hover:text-blue-500">Accessibility</a></li>
-            </ul>
-          </div>
-
-          {/* Useful Links & Visitors */}
-          <div>
-            <h3 className="font-semibold mb-4 text-black">Useful Links</h3>
-            <div className="flex flex-wrap gap-4 mb-4">
-              <a href="#" className="w-16 h-10 bg-gray-200 rounded flex items-center justify-center">
-                {/* NEGD Logo Placeholder */}
-                <span className="text-xs text-black">NEGD</span> 
-              </a>
-              <a href="#" className="w-16 h-10 bg-gray-200 rounded flex items-center justify-center">
-                {/* Digital India Logo Placeholder */}
-                <span className="text-xs text-black">DI</span>
-              </a>
-              <a href="#" className="w-16 h-10 bg-gray-200 rounded flex items-center justify-center">
-                {/* MyGov Logo Placeholder */}
-                <span className="text-xs text-black">MyGov</span>
-              </a>
-              <a href="#" className="w-16 h-10 bg-gray-200 rounded flex items-center justify-center">
-                {/* India.gov.in Logo Placeholder */}
-                <span className="text-xs text-black">India</span>
-              </a>
-            </div>
-            <p className="text-sm text-black">Visitors: 48,508,449</p> 
+      <div className="relative z-10 w-full h-full flex items-start justify-between py-[109px] px-[120px] pr-[165px] overflow-hidden">
+        <div className="text-left px-[5px] min-w-[160px]">
+          <h3 className="text-[#1C1D1F] font-['Roboto'] text-lg font-medium mb-5">Get to Know</h3>
+          <ul className="space-y-3">
+            {['Privacy Policy', 'Cancellation/Refund Policy', 'FAQ', 'Terms of Service'].map((item) => (
+              <li key={item}>
+                <a href="#" className="text-[#1C1D1F] font-['Noto_Sans'] text-sm hover:text-[#00599F] transition-colors duration-300">
+                  {item}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <h3 className="text-[#1C1D1F] font-['Roboto'] text-lg font-medium mt-8 mb-5">Grievance</h3>
+          <ul className="space-y-3">
+            {['CPGRAMS', 'National Consumer Helpline'].map((item) => (
+              <li key={item}>
+                <a href="#" className="text-[#1C1D1F] font-['Noto_Sans'] text-sm hover:text-[#00599F] transition-colors duration-300">
+                  {item}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="text-left px-[5px] min-w-[160px]">
+          <h3 className="text-[#1C1D1F] font-['Roboto'] text-lg font-medium mb-5">Quick Links</h3>
+          <ul className="space-y-3">
+            {[
+              'About Us',
+              'Dashboard',
+              'Schemes',
+              'Our Partners',
+              'Contact Us',
+              'Video Guide',
+              'User Manual',
+              'Accessibility'
+            ].map((item) => (
+              <li key={item}>
+                <a href="#" className="text-[#1C1D1F] font-['Noto_Sans'] text-sm hover:text-[#00599F] transition-colors duration-300">
+                  {item}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="text-left px-[5px] min-w-[160px] pt-[110px]">
+          <h3 className="text-[#1C1D1F] font-['Roboto'] text-lg font-medium mb-5">Useful Links</h3>
+          <div className="flex flex-row gap-5 items-center">
+            <a href="#" className="inline-flex items-center flex-shrink-0">
+              <Image
+                src="/images/negd.svg"
+                alt="NEGD"
+                width={84}
+                height={30}
+                className="transition-opacity duration-300 hover:opacity-80"
+              />
+            </a>
+            <a href="#" className="inline-flex items-center flex-shrink-0">
+              <Image
+                src="/images/digitalindia.svg"
+                alt="Digital India"
+                width={84}
+                height={44}
+                className="transition-opacity duration-300 hover:opacity-80"
+              />
+            </a>
+            <a href="#" className="inline-flex items-center flex-shrink-0">
+              <Image
+                src="/images/mygov.svg"
+                alt="MyGov"
+                width={59}
+                height={44}
+                className="transition-opacity duration-300 hover:opacity-80"
+              />
+            </a>
+            <a href="#" className="inline-flex items-center flex-shrink-0">
+              <Image
+                src="/images/indiagov.svg"
+                alt="India Gov"
+                width={70}
+                height={44}
+                className="transition-opacity duration-300 hover:opacity-80"
+              />
+            </a>
           </div>
         </div>
       </div>
@@ -79,4 +99,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default Footer; 

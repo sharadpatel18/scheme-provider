@@ -1,3 +1,10 @@
 @import "tailwindcss";
 
 
+.gov-card {
+  @apply border border-gray-200 rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow;
+}
+
+.gov-input {
+  @apply w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+}

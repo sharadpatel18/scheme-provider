@@ -24,6 +24,12 @@ export default function ChatBot() {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  useEffect(() => {
+    setMessages([
+      { text: "<strong>Sharthi:</strong> Hi there! How can I help you today?", sender: "bot" },
+    ]);
+  }, []);
+
   const sendMessage = async () => {
     if (!input.trim()) return;
 
@@ -42,8 +48,19 @@ export default function ChatBot() {
         .map((msg) => `${msg.sender}: ${msg.text}`)
         .join("\n");
 
-      const prompt = `You are \"Sharthi,\" a helpful AI chatbot that assists users with government schemes and facilities. Keep responses short, natural, and friendly.\n\nUser: ${input}\nSharthi:`;
+      const prompt = `You are Sharthi, a helpful chatbot that provides direct information about government schemes and facilities. Follow these rules:
+      1. Be concise and factual
+      2. Provide direct answers without asking follow-up questions
+      3. Keep responses under 3 sentences unless more detail is needed
+      4. If more information is available, provide it directly rather than asking if the user wants it
+      5. Format lists with bullet points when appropriate
 
+      Chat History:
+      ${chatHistory}
+      
+      User: ${input}
+      Sharthi:`;
+      
       const result = await model.generateContent(prompt);
       let responseText = await result.response.text();
       

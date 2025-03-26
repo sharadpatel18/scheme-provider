@@ -3,7 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { SchemeProvider } from "@/context/SchemeProvider";
-
+import { Providers } from "@/context/providers";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -22,13 +22,23 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400&family=Roboto:wght@500&display=swap"
+          rel="stylesheet"
+        />
+        <link
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet"
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-        <SchemeProvider>  
-        <Navbar/>
-        {children}
-        <Footer/>
+      >
+        <SchemeProvider>
+          <Navbar />
+          {children}
+          <Footer />
         </SchemeProvider>
       </body>
     </html>
