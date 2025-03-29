@@ -8,6 +8,9 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 
+const count = 10;
+const catagory = "Skills & Employment"
+
 const SchemesList = () => {
     const {catagory , setSelectedSchemes} = useContext(SchemeContext);
     const [schemes, setSchemes] = useState([]);
@@ -158,7 +161,7 @@ const SchemesList = () => {
             }
         };
 
-        if (category && count) {
+        if (catagory && count) {
             fetchSchemes();
         }
     }, []);

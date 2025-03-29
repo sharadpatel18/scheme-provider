@@ -158,18 +158,18 @@ export default function Home() {
     <main className="min-h-screen bg-gray-50">
       <div className="max-w-[1920px] mx-auto px-6 md:px-8 lg:px-12 pt-8">
         {/* Welcome Section */}
-        <section className="py-6 max-w-[1520px] mx-auto">
-          <div className="flex items-center justify-between">
+        <section className="max-w-[1520px] mx-auto">
+          <div className="flex flex-col items-start ">
             <h1 className="text-3xl font-semibold text-gray-900 flex items-center">
               <span className="mr-3">👋</span>
-              Hey, { Object?.keys(user).length > 0 ? user?.firstName + " " + user?.lastName : "User"}
-              <div className="ml-8 w-12 h-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full"></div>
-            </h1>
+                Hey, { Object?.keys(user).length > 0 ? user?.firstName + " " + user?.lastName : "User"}
+            </h1> 
+            <div className="my-2 mx-14 w-12 h-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full"></div>
           </div>
         </section>
 
         {/* Carousel Section */}
-        <section className="py-8 max-w-[1520px] mx-auto">
+        <section className="py-2 max-w-[1520px] mx-auto">
           <div className="relative w-full overflow-hidden rounded-2xl shadow-xl">
             <div
               className="flex transition-transform duration-700 ease-in-out"
@@ -212,19 +212,22 @@ export default function Home() {
         </section>
 
         {/* Quick Services Section */}
-        <section className="py-12">
+        <section className="py-10">
           <div className="max-w-[1520px] mx-auto">
-            <h2 className="text-3xl font-semibold text-gray-900 flex items-center mb-12 px-4">
+            <div className='mb-6'>
+
+            <h2 className="text-3xl font-semibold text-gray-900 flex items-center mb-2 px-4">
               <span className="mr-3">🔗</span>
               Quick Services
-              <div className="ml-8 w-12 h-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full"></div>
             </h2>
+              <div className="ml-18 w-12 h-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full"></div>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
               {services.map((service) => (
                 <div
                   key={service.id}
-                  className="bg-white rounded-xl p-6 flex items-center gap-4 transition-all hover:-translate-y-2 hover:shadow-xl group relative overflow-hidden cursor-pointer"
+                  className="bg-gradient-to-r from-[#D0F9BE] to-[#ADE9F1] rounded-xl px-6 py-4 flex items-center gap-4 transition-all hover:-translate-y-2 hover:shadow-xl group relative overflow-hidden cursor-pointer"
                   onClick={service.onClick}
                 >
                   <div className={`w-16 h-16 flex items-center justify-center ${service.iconBg || 'bg-gray-50'} rounded-xl shadow-lg group-hover:scale-110 transition-transform`}>
@@ -237,7 +240,7 @@ export default function Home() {
                     />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors">
                       {service.title}
                     </h3>
                     <p className="text-sm text-gray-600 group-hover:text-gray-800 transition-colors">
@@ -251,7 +254,7 @@ export default function Home() {
         </section>
 
         {/* All Services Section */}
-        <section className="py-12">
+        <section className="">
           <div className="max-w-[1520px] mx-auto md:px-8 lg:px-0">
             <div className="relative aspect-[16/2] mx-auto">
               <Image
