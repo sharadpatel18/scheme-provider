@@ -1,13 +1,18 @@
 'use client';
-import { useState, useEffect } from 'react';
+
+import { useState, useEffect, useContext } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { SchemeContext } from '@/context/SchemeProvider';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
   const [userData, setUserData] = useState(null);
   const [userProfile, setUserProfile] = useState(null);
+  const pathname = usePathname();
+  const {setIsOpen} = useContext(SchemeContext);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,12 +23,8 @@ const Navbar = () => {
     // Get user data from localStorage
     const getUserData = () => {
       try {
-        const storedUser = localStorage.getItem('user');
-        const storedProfile = localStorage.getItem('userProfile');
-        
-        if (storedUser) {
-          setUserData(JSON.parse(storedUser));
-        }
+        const storedProfile = localStorage.getItem('profileData');  
+      
         if (storedProfile) {
           setUserProfile(JSON.parse(storedProfile));
         }
@@ -36,6 +37,13 @@ const Navbar = () => {
     getUserData();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const isActive = (path) => {
+    if (path === '/') {
+      return pathname === path;
+    }
+    return pathname.startsWith(path);
+  };
 
   const renderAuthButton = () => {
     if (userProfile) {
@@ -67,7 +75,7 @@ const Navbar = () => {
       // If no data exists, show login/register button
       return (
         <Link 
-          href="/auth/login" 
+          href="/register" 
           className="px-5 py-1.5 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors text-sm"
         >
           Login/Register
@@ -106,7 +114,7 @@ const Navbar = () => {
             </div>
             <div className="text-white text-center font-['Noto_Sans'] text-sm font-normal leading-[21px]">Important</div>
           </button>
-          <button className="inline-flex h-7 items-center gap-3 flex-shrink-0 rounded cursor-pointer">
+          <button className="inline-flex h-7 items-center gap-3 flex-shrink-0  cursor-pointer  border border-white rounded-md px-2 py-1" onClick={()=>setIsOpen(true)}>
             <div className="text-white font-['Noto_Sans'] text-sm">Saarthi ChatBot</div>
             <div className="w-5 h-5 flex items-center justify-center">
               <Image src="/images/saarthi.svg" alt="Saarthi" width={20} height={20} className="w-full h-full object-contain" />
@@ -114,7 +122,7 @@ const Navbar = () => {
           </button>
           <div className="relative">
             <button 
-              className="flex items-center gap-2 cursor-pointer"
+              className="flex items-center gap-2 cursor-pointer  border border-white rounded-md px-2 py-1"
               onClick={() => setShowLanguageDropdown(!showLanguageDropdown)}
             >
               <div className="text-white font-['Noto_Sans'] text-sm">English</div>
@@ -143,26 +151,66 @@ const Navbar = () => {
       <div className={`w-full h-[82px] flex-shrink-0 bg-white shadow-md fixed left-0 z-40 transition-all duration-300 ${isScrolled ? 'top-0' : 'top-[55px]'}`}>
         <div className="max-w-[1521px] mx-auto h-full flex items-center justify-between px-5">
           <div className="flex items-center">
-            <div className="w-[200px] h-[70px]">
-              <Image src="/images/sangam.svg" alt="Sangam Logo" width={100} height={100} className="w-full h-full object-contain" />
+            <div className="w-[300px] h-[100px]">
+              <Image src="/images/sangam.svg" alt="Sangam Logo" width={200} height={200} className="w-full h-full object-contain" />
             </div>
           </div>
           <div className="flex items-center gap-8">
             <nav className="flex gap-6">
-              <Link href="/" className="text-[#1C1D1F] font-['Noto_Sans'] text-sm hover:text-blue-600">
+              <Link 
+                href="/" 
+                className={`text-[#1C1D1F] font-['Noto_Sans'] text-sm hover:text-blue-600 relative group ${
+                  isActive('/') ? 'text-blue-600' : ''
+                }`}
+              >
                 Home
+                {isActive('/') && (
+                  <div className="absolute bottom-[-4px] left-0 w-full h-0.5 bg-blue-600"></div>
+                )}
               </Link>
-              <Link href="/about" className="text-[#1C1D1F] font-['Noto_Sans'] text-sm hover:text-blue-600">
+              <Link 
+                href="/about" 
+                className={`text-[#1C1D1F] font-['Noto_Sans'] text-sm hover:text-blue-600 relative group ${
+                  isActive('/about') ? 'text-blue-600' : ''
+                }`}
+              >
                 About us
+                {isActive('/about') && (
+                  <div className="absolute bottom-[-4px] left-0 w-full h-0.5 bg-blue-600"></div>
+                )}
               </Link>
-              <Link href="/serices" className="text-[#1C1D1F] font-['Noto_Sans'] text-sm hover:text-blue-600">
+              <Link 
+                href="/partners-list" 
+                className={`text-[#1C1D1F] font-['Noto_Sans'] text-sm hover:text-blue-600 relative group ${
+                  isActive('/partners-list') ? 'text-blue-600' : ''
+                }`}
+              >
                 Services
+                {isActive('/partners-list') && (
+                  <div className="absolute bottom-[-4px] left-0 w-full h-0.5 bg-blue-600"></div>
+                )}
               </Link>
-              <Link href="/dashboard" className="text-[#1C1D1F] font-['Noto_Sans'] text-sm hover:text-blue-600">
+              <Link 
+                href="/dashboard" 
+                className={`text-[#1C1D1F] font-['Noto_Sans'] text-sm hover:text-blue-600 relative group ${
+                  isActive('/dashboard') ? 'text-blue-600' : ''
+                }`}
+              >
                 Dashboard
+                {isActive('/dashboard') && (
+                  <div className="absolute bottom-[-4px] left-0 w-full h-0.5 bg-blue-600"></div>
+                )}
               </Link>
-              <Link href="/schemes-section/schemes" className="text-[#1C1D1F] font-['Noto_Sans'] text-sm hover:text-blue-600">
+              <Link 
+                href="/schemes-section/schemes" 
+                className={`text-[#1C1D1F] font-['Noto_Sans'] text-sm hover:text-blue-600 relative group ${
+                  isActive('/schemes-section') ? 'text-blue-600' : ''
+                }`}
+              >
                 Schemes
+                {isActive('/schemes-section') && (
+                  <div className="absolute bottom-[-4px] left-0 w-full h-0.5 bg-blue-600"></div>
+                )}
               </Link>
             </nav>
             <div className="relative">

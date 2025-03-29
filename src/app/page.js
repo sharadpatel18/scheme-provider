@@ -1,231 +1,317 @@
-"use client";
-import Image from "next/image";
-import { useState, useEffect } from "react";
-import { User2 } from "lucide-react";
-import Head from 'next/head';
+'use client';
 
-const images = [
-  "/Images/delhigate.jpeg",
-  "/Images/farmer.jpeg",
-  "/Images/school.jpeg",
-  "/Images/delhigate.jpeg",
-];
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import Helpline from '@/components/chatbot/Helpline';
+import ReportForm from '@/components/chatbot/ReportForm';
+import Emergency from '@/components/chatbot/Emergency';
+import Health from '@/components/chatbot/Health';
+import { FaUser } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
 
-const topics = [
-  {
-    title: 'The India and its government',
-    description: 'Learn about India laws, history, and more.',
-    icon: '/services/building.png', // Replace with your icon path
-  },
-  {
-    title: 'Complaints',
-    description: 'File complaints involving government agencies, telemarketers, products and services, travel, housing, and banking.',
-    icon: '/services/message.jpeg', // Replace with your icon path
-  },
-  {
-    title: 'Disability services',
-    description: 'Find government benefits and programs for people with disabilities and their families.',
-    icon: '/services/disable.jpeg', // Replace with your icon path
-  },
-  {
-    title: 'Disasters and emergencies',
-    description: 'Learn about disaster relief and find government benefits for other emergencies.',
-    icon: '/services/speaker.jpeg', // Replace with your icon path
-  },
-  {
-    title: 'Scams and fraud',
-    description: 'Report a scam and get help. And learn about identity theft and social security scams.',
-    icon: '/services/warning.jpeg', // Replace with your icon path
-  },
-  {
-    title: 'Education',
-    description: 'Find Student benefits and scholarship program and courses that help to student',
-    icon: '/services/certificate.jpeg', // Replace with your icon path
-  },
-  {
-    title: 'Government benefits',
-    description: 'Find government Scheme that may help pay for food, housing, health care, and more.',
-    icon: '/services/benefits.png', // Replace with your icon path
-  },
-  {
-    title: 'Health',
-    description: 'Get information about health insurance, various health conditions, and help with medical bills.',
-    icon: '/services/health.png', // Replace with your icon path
-  },
-  {
-    title: 'Laws and legal issues',
-    description: 'Learn how to replace vital records, get child support enforcement, find legal help, and more.',
-    icon: '/laws.png', // Replace with your icon path
-  },
-];
 export default function Home() {
+  const router = useRouter();
+  // Header States
+  const [isLanguageOpen, setIsLanguageOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [showHelpline, setShowHelpline] = useState(false);
+  const [showReportForm, setShowReportForm] = useState(false);
+  const [showEmergency, setShowEmergency] = useState(false);
+  const [showHealth, setShowHealth] = useState(false);
+  const [user , setUser] = useState({})
 
   useEffect(() => {
+    const data = JSON.parse(localStorage.getItem('profileData'))
+
+    if (data) {
+      setUser(data);
+    }else{
+      setUser({});
+    }
+
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 1000);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % carouselImages.length);
+    }, 4000);
 
     return () => clearInterval(interval);
+
+  }, []);
+
+  // Add navigation functions
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % carouselImages.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + carouselImages.length) % carouselImages.length);
+  };
+
+  // Carousel Data
+  const carouselImages = [
+    { src: '/images/1.png', alt: 'India Gate' },
+    { src: '/images/2.png', alt: 'Farmer' },
+    { src: '/images/3.png', alt: 'Students' },
+    { src: '/images/4.png', alt: 'Digital India' },
+    { src: '/images/5.png', alt: 'Government Services' },
+  ];
+
+  // Quick Services Data
+  const services = [
+    {
+      id: 1,
+      title: 'Health',
+      description: 'Quick medical service, one click ambulance and more...',
+      icon: '/Top header SVG/Health.svg',
+      iconBg: 'bg-white',
+      onClick: () => setShowHealth(true)
+    },
+    {
+      id: 2,
+      title: 'Emergency',
+      description: 'Quick Emergency service, Women/Children Helpline, one click police support',
+      icon: '/Top header SVG/emergency.svg',
+      iconBg: 'bg-white',
+      onClick: () => setShowEmergency(true)
+    },
+    {
+      id: 3,
+      title: 'Report Issues',
+      description: 'File Complaints Against Govt Services & Report a Crime Instantly',
+      icon: '/Top header SVG/report.svg',
+      onClick: () => setShowReportForm(true)
+    },
+    {
+      id: 4,
+      title: 'Helpline',
+      description: '24/7 support and grievance redressal & all necessary helpline numbers',
+      icon: '/Top header SVG/telephone.svg',
+      onClick: () => setShowHelpline(true)
+    }
+  ];
+
+  // Topics Data
+  const topics = [
+    {
+      id: 1,
+      title: 'The India and its government',
+      description: 'Learn about India\'s laws, history, and government services. Stay informed about policies that impact citizens.',
+      icon: '/Top header SVG/Services/india.svg'
+    },
+    {
+      id: 2,
+      title: 'Complaints',
+      description: 'File complaints involving government agencies, telemarketers, products and services, travel, housing, and banking. Get guidance on resolving issues quickly.',
+      icon: '/Top header SVG/Services/Complain.svg'
+    },
+    {
+      id: 3,
+      title: 'Disability services',
+      description: 'Find government benefits and programs for people with disabilities and their families. Get support for education, employment, and healthcare.',
+      icon: '/Top header SVG/Services/disablity.svg'
+    },
+    {
+      id: 4,
+      title: 'Disasters and emergencies',
+      description: 'Learn about disaster relief and find government benefits for other emergencies. Access resources to stay prepared and recover faster.',
+      icon: '/Top header SVG/Services/disaster.svg'
+    },
+    {
+      id: 5,
+      title: 'Scams and fraud',
+      description: 'Report a scam and get help. Learn about identity theft, social security scams, and ways to protect yourself from fraud.',
+      icon: '/Top header SVG/Services/scam.svg'
+    },
+    {
+      id: 6,
+      title: 'Education',
+      description: 'Find student benefits, scholarship programs, and courses that help students. Explore skill development programs and government grants.',
+      icon: '/Top header SVG/Services/Education.svg'
+    },
+    {
+      id: 7,
+      title: 'Government benefits',
+      description: 'Find government schemes that may help pay for food, housing, healthcare, and more. Discover financial aid and social security support.',
+      icon: '/Top header SVG/Services/benefits.svg'
+    },
+    {
+      id: 8,
+      title: 'Health',
+      description: 'Get information about health insurance, various health conditions, and help with medical bills. Learn about free medical checkups and vaccination programs.',
+      icon: '/Top header SVG/Services/Health.svg'
+    }
+  ];
+
+  // Header Scroll Effect
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 55);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <>
-      <div className="bg-white p-6 rounded-lg shadow-md">
-        {/* Header Section */}
-        <div className="flex justify-between items-center mb-6">
-          <div className="flex items-center">
-            {/* <img
-              src="/user-avatar.png"
-              alt="User Avatar"
-              className="w-10 h-10 rounded-full mr-2"
-            /> */}
-            <User2 size={32} />
-            <span className="text-lg font-semibold">Hey, User</span>
+    <main className="min-h-screen bg-gray-50">
+      <div className="max-w-[1920px] mx-auto px-6 md:px-8 lg:px-12 pt-8">
+        {/* Welcome Section */}
+        <section className="py-6 max-w-[1520px] mx-auto">
+          <div className="flex items-center justify-between">
+            <h1 className="text-3xl font-semibold text-gray-900 flex items-center">
+              <span className="mr-3">👋</span>
+              Hey, { Object?.keys(user).length > 0 ? user?.firstName + " " + user?.lastName : "User"}
+              <div className="ml-8 w-12 h-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full"></div>
+            </h1>
           </div>
-        </div>
+        </section>
 
-        {/* Main Content Area (Rounded Boxes) */}
-        <div className="relative w-full overflow-hidden">
-          <div
-            className="flex transition-transform duration-500 ease-in-out space-x-4"
-            style={{ transform: `translateX(-${currentIndex * (100 / 3)}%)` }}
-          >
-            {images.concat(images).map((image, index) => (
-              <div key={index} className="w-1/3 flex-shrink-0 px-2">
-                <Image
-                  src={image}
-                  alt={`Slide ${index + 1}`}
-                  width={500}
-                  height={350}
-                  className="w-full h-64 object-cover rounded-lg"
-                />
-              </div>
-            ))}
+        {/* Carousel Section */}
+        <section className="py-8 max-w-[1520px] mx-auto">
+          <div className="relative w-full overflow-hidden rounded-2xl shadow-xl">
+            <div
+              className="flex transition-transform duration-700 ease-in-out"
+              style={{ transform: `translateX(-${currentIndex * (100 / 3)}%)` }}
+            >
+              {carouselImages.concat(carouselImages).map((image, index) => (
+                <div key={index} className="w-1/3 flex-shrink-0 p-2">
+                  <div className="aspect-[16/8.5] relative">
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      className="object-cover rounded-xl shadow-lg"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            {/* Navigation Buttons */}
+            <button
+              onClick={prevSlide}
+              className="absolute left-6 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all hover:scale-110"
+              aria-label="Previous slide"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+              </svg>
+            </button>
+            <button
+              onClick={nextSlide}
+              className="absolute right-6 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all hover:scale-110"
+              aria-label="Next slide"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+              </svg>
+            </button>
           </div>
-        </div>
-
-        {/* Pagination Indicators */}
-        <div className="flex justify-center my-6">
-          <div className="flex space-x-2">
-            {images.map((_, index) => (
-              <div
-                key={index}
-                className={`w-2 h-2 rounded-full ${
-                  currentIndex === index ? "bg-blue-500" : "bg-gray-400"
-                }`}
-              ></div>
-            ))}
-          </div>
-        </div>
+        </section>
 
         {/* Quick Services Section */}
-        <div className="flex items-center mb-4">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 mr-2 text-gray-600"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M13 10V3L4 14h7v7l9-11h-7z"
-            />
-          </svg>
-          <span className="text-lg font-semibold">Quick Services</span>
-        </div>
+        <section className="py-12">
+          <div className="max-w-[1520px] mx-auto">
+            <h2 className="text-3xl font-semibold text-gray-900 flex items-center mb-12 px-4">
+              <span className="mr-3">🔗</span>
+              Quick Services
+              <div className="ml-8 w-12 h-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full"></div>
+            </h2>
 
-        {/* Service Cards */}
-        <div className="grid grid-cols-4 gap-4">
-          {/* Health Card */}
-          <div className="bg-gradient-to-r from-green-200 to-green-100 p-4 rounded-lg">
-            <Image
-              src="/Images/health.png"
-              alt="Health Icon"
-              className="w-10 h-10 mb-2"
-              width={100}
-              height={100}
-            />
-            <h3 className="text-lg font-semibold mb-1">Health</h3>
-            <p className="text-sm text-gray-600">
-              Quick medical service, one click ambulance and more...
-            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
+              {services.map((service) => (
+                <div
+                  key={service.id}
+                  className="bg-white rounded-xl p-6 flex items-center gap-4 transition-all hover:-translate-y-2 hover:shadow-xl group relative overflow-hidden cursor-pointer"
+                  onClick={service.onClick}
+                >
+                  <div className={`w-16 h-16 flex items-center justify-center ${service.iconBg || 'bg-gray-50'} rounded-xl shadow-lg group-hover:scale-110 transition-transform`}>
+                    <Image
+                      src={service.icon}
+                      alt={service.title}
+                      width={64}
+                      height={64}
+                      className="object-contain p-2"
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                      {service.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 group-hover:text-gray-800 transition-colors">
+                      {service.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
+        </section>
 
-          {/* Emergency Card */}
-          <div className="bg-gradient-to-r from-red-200 to-red-100 p-4 rounded-lg">
-            <Image
-              src="/Images/emergency.png"
-              alt="Emergency Icon"
-              className="w-10 h-10 mb-2"
-              width={100}
-              height={100}
-            />
-            <h3 className="text-lg font-semibold mb-1">Emergency</h3>
-            <p className="text-sm text-gray-600">
-              Quick Emergency service, Women/Children Helpline, one click police
-              support
-            </p>
+        {/* All Services Section */}
+        <section className="py-12">
+          <div className="max-w-[1520px] mx-auto md:px-8 lg:px-0">
+            <div className="relative aspect-[16/2] mx-auto">
+              <Image
+                src="/Top header SVG/AllServises.svg"
+                alt="All Services"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
           </div>
+        </section>
 
-          {/* Report Issues Card */}
-          <div className="bg-gradient-to-r from-yellow-200 to-yellow-100 p-4 rounded-lg">
-            <Image
-              src="/Images/warning.png"
-              alt="Report Icon"
-              className="w-10 h-10 mb-2"
-              width={100}
-              height={100}
-            />
-            <h3 className="text-lg font-semibold mb-1">Report Issues</h3>
-            <p className="text-sm text-gray-600">
-              File Complaints Against Govt Services & Report a Crime instantly
-            </p>
+        {/* Topics Section */}
+        <section className="py-12">
+          <div className="max-w-[1520px] mx-auto px-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {topics.map((topic) => (
+                <div
+                  key={topic.id}
+                  className="bg-white rounded-xl p-6 flex flex-col gap-4 transition-all hover:-translate-y-2 hover:shadow-xl group relative overflow-hidden"
+                >
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 to-blue-400 -translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                  
+                  <div className="w-14 h-14 bg-gray-50 rounded-xl p-3 group-hover:bg-blue-50 transition-colors">
+                    <Image
+                      src={topic.icon}
+                      alt={topic.title}
+                      width={56}
+                      height={56}
+                      className="object-contain group-hover:scale-110 transition-transform"
+                    />
+                  </div>
+                  
+                  <div>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
+                      {topic.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 group-hover:text-gray-800 transition-colors">
+                      {topic.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-
-          {/* Helpline Card */}
-          <div className="bg-gradient-to-r from-blue-200 to-blue-100 p-4 rounded-lg">
-            <Image
-              src="/Images/helpline.png"
-              alt="Helpline Icon"
-              className="w-10 h-10 mb-2"
-              width={100}
-              height={100}
-            />
-            <h3 className="text-lg font-semibold mb-1">Helpline</h3>
-            <p className="text-sm text-gray-600">
-              24/7 support and grievance redressal & all necessary helpline
-              numbers
-            </p>
-          </div>
-        </div>
+        </section>
       </div>
 
+      {/* Helpline Component */}
+      {showHelpline && <Helpline onClose={() => setShowHelpline(false)} />}
       
-      <header className="bg-blue-600 text-white py-4">
-        <div className="container mx-auto text-center">
-          <h1 className="text-2xl font-semibold">All topics and services</h1>
-        </div>
-      </header>
+      {/* Report Form Component */}
+      {showReportForm && <ReportForm onClose={() => setShowReportForm(false)} />}
 
-      <main className="max-w-full h-screen bg-white container px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-10">
-          {topics.map((topic, index) => (
-            <div key={index} className="bg-white rounded-lg  p-4 border border-gray-300 shadow-lg shadow-blue-100">
-              <div className="flex justify-center mb-4">
-                <img src={topic.icon} alt={topic.title} className="h-10 w-10" />
-              </div>
-             <div className=" border-t-2 border-dotted border-gray-300">
-             <h2 className="text-lg font-bold mb-2">{topic.title}</h2>
-             <p className="text-gray-600 text-sm">{topic.description}</p>
-             </div>
-            </div>
-          ))}
-        </div>
-      </main>
-    </>
+      {/* Emergency Component */}
+      {showEmergency && <Emergency onClose={() => setShowEmergency(false)} />}
+
+      {/* Health Component */}
+      {showHealth && <Health onClose={() => setShowHealth(false)} />}
+    </main>
   );
-}
+} 

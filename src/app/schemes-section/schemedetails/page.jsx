@@ -34,7 +34,7 @@ const SchemeDetails = () => {
         Create a comprehensive and detailed analysis of this scheme with the following structure. Make sure to provide extensive, realistic, and accurate information for each section:
 
         1. DETAILED DESCRIPTION:
-        - Provide a thorough explanation of the scheme (at least 3-4 paragraphs)
+        - Provide a thorough explanation of the scheme (at least 2-3 paragraphs)
         - Include the implementing agency/department
         - Mention the year of launch and any significant modifications
         - Explain the scheme's objectives and goals
@@ -71,7 +71,7 @@ const SchemeDetails = () => {
         - List supporting documents that may be needed
 
         6. FREQUENTLY ASKED QUESTIONS:
-        - Create at least 8 relevant FAQs
+        - Create at least 4 relevant FAQs
         - Include questions about eligibility
         - Address common application issues
         - Include questions about benefit disbursement
