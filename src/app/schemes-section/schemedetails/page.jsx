@@ -99,16 +99,61 @@ const SchemeDetails = () => {
           "sources": ["array of sources and references"]
         }
 
-        Make sure all information is detailed, realistic, and properly formatted.
+        Make sure all information is detailed, realistic, and properly formatted. Do not include any special characters or control characters in the response.
         `;
 
         const result = await model.generateContent(prompt);
         const response = await result.response.text();
-        const cleanResponse = response.replace(/```json|```/g, "").trim();
-        const parsedData = JSON.parse(cleanResponse);
-        setEnrichedData(parsedData);
+        
+        // Clean the response
+        let cleanResponse = response
+          .replace(/```json|```/g, "") // Remove markdown code blocks
+          .replace(/[\u0000-\u001F\u007F-\u009F]/g, "") // Remove control characters
+          .replace(/\n/g, " ") // Replace newlines with spaces
+          .replace(/\s+/g, " ") // Replace multiple spaces with single space
+          .trim();
+
+        try {
+          const parsedData = JSON.parse(cleanResponse);
+          setEnrichedData(parsedData);
+        } catch (parseError) {
+          console.error("JSON Parse Error:", parseError);
+          // Fallback data in case of parsing error
+          setEnrichedData({
+            detailed_description: "Unable to load scheme details. Please try again later.",
+            benefits: ["Information temporarily unavailable"],
+            eligibility: ["Information temporarily unavailable"],
+            application_process: {
+              steps: ["Information temporarily unavailable"],
+              online_process: ["Information temporarily unavailable"],
+              offline_process: ["Information temporarily unavailable"]
+            },
+            documents_required: ["Information temporarily unavailable"],
+            faqs: [{
+              question: "Why am I seeing this message?",
+              answer: "There was an error loading the scheme details. Please try again later."
+            }],
+            sources: ["Information temporarily unavailable"]
+          });
+        }
       } catch (error) {
         console.error("Error fetching enriched data:", error);
+        setEnrichedData({
+          detailed_description: "Unable to load scheme details. Please try again later.",
+          benefits: ["Information temporarily unavailable"],
+          eligibility: ["Information temporarily unavailable"],
+          application_process: {
+            steps: ["Information temporarily unavailable"],
+            online_process: ["Information temporarily unavailable"],
+            offline_process: ["Information temporarily unavailable"]
+          },
+          documents_required: ["Information temporarily unavailable"],
+          faqs: [{
+            question: "Why am I seeing this message?",
+            answer: "There was an error loading the scheme details. Please try again later."
+          }],
+          sources: ["Information temporarily unavailable"]
+        });
       } finally {
         setLoading(false);
       }

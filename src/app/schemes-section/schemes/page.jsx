@@ -80,7 +80,7 @@ const trendingSchemes = [
 
 const Schemes = () => {
   const router = useRouter();
-  const { setCatagory } = useContext(SchemeContext);
+  const { setSelectedSchemes } = useContext(SchemeContext);
   
   const [schemes, setSchemes] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -193,8 +193,8 @@ const Schemes = () => {
   }, [userProfile]);
 
   const handleCatagories = (scheme) => {
-    setCatagory(scheme);
-    router.push("/schemes-section/schemelist");
+    setSelectedSchemes(scheme);
+    router.push("/schemes-section/schemedetails");
   };
 
   const handleSearch = (e) => {
