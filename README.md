@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Sangam - AI-Powered Government Service Platform 🇮🇳
+Bridging Citizens with Government Services Effortlessly
+Sangam is an AI-driven platform designed to simplify access to government schemes, services, and benefits for Indian citizens. Our goal is to eliminate confusion and help people find the schemes they are eligible for based on their profile and requirements.
 
-## Getting Started
+🚀 Features
+✅ AI-Based Scheme Finder – Automatically suggests relevant government schemes based on user details.
+✅ Saarthi - AI Chatbot – Answers queries and provides guidance on various government services.
+✅ Voice-Assisted Scheme Info – Reads out scheme details for better accessibility.
+✅ Nearby Government Office Finder – Helps users locate the nearest government offices.
+✅ Complaint & Issue Reporting – File complaints related to public services or infrastructure.
+✅ Personalized Dashboard – Track saved schemes, applications, and more.
 
-First, run the development server:
+🔧 Tech Stack
+Frontend: React.js, Tailwind CSS
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Backend: Node.js, Express.js
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Database: MongoDB
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+AI: OpenAI API, NLP for chatbot functionality
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Other APIs: Government open data APIs for schemes and services
 
-## Learn More
+📌 Installation & Setup
+1️⃣ Clone this repository:
 
-To learn more about Next.js, take a look at the following resources:
+bash
+Copy
+Edit
+git clone https://github.com/sharadpatel1807/scheme-provider.git
+cd Sangam
+2️⃣ Install dependencies:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+bash
+Copy
+Edit
+npm install
+3️⃣ Start the development server:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+bash
+Copy
+Edit
+npm start
+📷 Screenshots & Demo
+Add some images or a link to the demo video here.
 
-## Deploy on Vercel
+🤝 Contributors
+Divy Desai - Team Lead
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Akhil Ratanpara - UI/UX Designer
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Aastha Rathod - Presentation & Documentation
+
+Sharad Patel - AI & Backend Developer
+
+🎯 Future Enhancements
+🔹 Integration with DigiLocker for document verification
+🔹 Multilingual support for better accessibility
+🔹 Real-time updates on new government schemes
+🔹 Mobile app version
+
+🚀 Sangam - One Nation, One Platform for Government Services! 🇮🇳
