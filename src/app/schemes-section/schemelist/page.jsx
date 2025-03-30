@@ -139,25 +139,51 @@ const SchemesList = () => {
                     - Set isNew and lastUpdated randomly as true/false.
                     - Set createdAt dates within the last 6 months.
                     - Do NOT include markdown, explanations, or extra text.
+                    - Ensure all JSON is properly formatted with no trailing commas.
                 `;
 
                 const result = await model.generateContent(prompt);
                 let response = await result.response.text();
                 console.log("Raw API Response:", response);
 
-                // Remove possible markdown code block formatting
-                response = response.replace(/```json|```/g, "").trim();
+                // Clean the response
+                let cleanResponse = response
+                    .replace(/```json|```/g, "") // Remove markdown code blocks
+                    .replace(/[\u0000-\u001F\u007F-\u009F]/g, "") // Remove control characters
+                    .replace(/\n/g, " ") // Replace newlines with spaces
+                    .replace(/\s+/g, " ") // Replace multiple spaces with single space
+                    .replace(/,(\s*[}\]])/g, "$1") // Remove trailing commas
+                    .trim();
 
                 try {
-                    const parsedData = JSON.parse(response);
-                    setSchemes(parsedData);
+                    const parsedData = JSON.parse(cleanResponse);
+                    // Validate the parsed data
+                    if (!Array.isArray(parsedData)) {
+                        throw new Error("Response is not an array");
+                    }
+                    // Ensure all required fields are present
+                    const validatedData = parsedData.map(scheme => ({
+                        title: scheme.title || "Untitled Scheme",
+                        description: scheme.description || "No description available",
+                        tags: Array.isArray(scheme.tags) ? scheme.tags : ["General"],
+                        state: scheme.state || "Puducherry",
+                        popularity: Number(scheme.popularity) || 1,
+                        isNew: Boolean(scheme.isNew),
+                        lastUpdated: Boolean(scheme.lastUpdated),
+                        createdAt: scheme.createdAt || new Date().toISOString().split('T')[0]
+                    }));
+                    setSchemes(validatedData);
                 } catch (jsonError) {
                     console.error("JSON Parsing Error:", jsonError);
-                    console.log("Malformed JSON response:", response);
+                    console.log("Cleaned Response:", cleanResponse);
+                    // Set empty array as fallback
+                    setSchemes([]);
                 }
-                setLoading(false);
             } catch (error) {
                 console.error("Error fetching schemes:", error);
+                setSchemes([]);
+            } finally {
+                setLoading(false);
             }
         };
 

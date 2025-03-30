@@ -80,7 +80,7 @@ const trendingSchemes = [
 
 const Schemes = () => {
   const router = useRouter();
-  const { setSelectedSchemes } = useContext(SchemeContext);
+  const { setSelectedSchemes , setCatagory } = useContext(SchemeContext);
   
   const [schemes, setSchemes] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -196,6 +196,11 @@ const Schemes = () => {
     setSelectedSchemes(scheme);
     router.push("/schemes-section/schemedetails");
   };
+  
+  const handleList = (cataory) => {
+    setCatagory(cataory);
+    router.push("/schemes-section/schemelist");
+  }
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
@@ -532,7 +537,7 @@ const Schemes = () => {
                 transition={{ duration: 0.5, delay: 0.1 * index }}
                 whileHover={{ y: -5 }}
                 className="group relative bg-gradient-to-br from-white to-gray-50 rounded-xl p-6 hover:shadow-lg transition-all duration-300 border border-gray-100 cursor-pointer overflow-hidden"
-                onClick={() => handleCatagories(category)}
+                onClick={() => handleList(category)}
               >
                 {/* Decorative background pattern */}
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#e0f2fe_1px,transparent_1px),linear-gradient(to_bottom,#e0f2fe_1px,transparent_1px)] bg-[size:1rem_1rem] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
